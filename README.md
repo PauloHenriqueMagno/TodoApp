@@ -73,21 +73,23 @@ O projeto foi construído utilizando **Expo**, **React Native** e **TypeScript**
 
 ### Core
 
-- **Expo** — para integração nativa simplificada
+- **Expo** — para integração nativa simplificada e diminuição das configurações necessarias
 - **React Native**
 - **TypeScript**
 
 ### Estado e Navegação
 
-- **React Navigation** — navegação entre telas
-- **Context API** — gerenciamento de estado global
+- **React Navigation** — navegação entre telas mais utilizado
+- **Context API** — gerenciamento de estado global que mais utilizo
 
 ### Persistência
 
-- **SQLite (expo-sqlite)**
-- **expo-file-system** - salvamento das imagens
+- **SQLite (expo-sqlite)** - adaptação mais facilitada pela experiência com query pura
+- **expo-file-system** - salvamento das imagens mais simplificado, porém foi necessario utilizar o legacy para implementar as funcionalidades
 
 ### Recursos Nativos
+
+Foi utilizado os recursos padrões disponiveis na documentação da Expo, além de intuitivos são bem simplificados.
 
 - **expo-image-picker** — câmera e galeria
 - **expo-location** — geolocalização
@@ -166,13 +168,14 @@ src/
 
 ## Desafios e Soluções
 
-| Desafio                | Solução                                                          |
-| ---------------------- | ---------------------------------------------------------------- |
-| Controle de permissões | Contexto global para pedir e gerenciar permissões dinamicamente. |
-| Persistência offline   | Uso de SQLite com mapeamento de entidade e sincronia local.      |
-| Captura de imagem      | Uso de `expo-image-picker`.                                      |
-| Geolocalização         | Implementado com `expo-location`, exibindo coordenadas.          |
-| UX e UI                | IA Visily para gerar o layout e exemplo do fluxo do app.         |
+| Desafio                | Solução                                                                                      |
+| ---------------------- | -------------------------------------------------------------------------------------------- |
+| Controle de permissões | Contexto global para pedir e gerenciar permissões dinamicamente.                             |
+| Persistência offline   | Uso de SQLite com mapeamento de entidade e sincronia local.                                  |
+| Captura de imagem      | Uso de `expo-image-picker`.                                                                  |
+| Geolocalização         | Implementado com `expo-location`, exibindo coordenadas.                                      |
+| UX e UI                | IA Visily para gerar o layout e exemplo do fluxo do app.                                     |
+| Salvamento de arquivos | Implementado com o legacy, testei outras alternativas mas não encontrei algo do mesmo nivel. |
 
 ---
 

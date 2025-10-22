@@ -84,11 +84,9 @@ export const PermissionsProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const ensureLocationPermission = useCallback(async () => {
     let perm = await Location.requestForegroundPermissionsAsync();
-    console.log(perm);
     if (perm.granted) {
       perm = await Location.getForegroundPermissionsAsync();
     }
-    console.log(perm);
     if (perm.granted) {
       setLocationStatus(perm.status);
       return true;

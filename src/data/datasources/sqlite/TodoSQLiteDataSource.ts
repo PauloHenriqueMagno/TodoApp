@@ -120,7 +120,6 @@ export class TodoSQLiteDataSource implements TodoRepository {
 
       // execute
       const rows = this.db.getAllSync(sql, params);
-      console.log("Executed SQL:", rows);
       return rows.map(TodoMapper.fromRow);
     } catch (error) {
       console.error("Error in all():", error);

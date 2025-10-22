@@ -1,6 +1,36 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    /* Core settings */
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-native",
+    "lib": ["ESNext"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "isolatedModules": true,
+
+    /* Strictness */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Path aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@domain/*": ["src/domain/*"],
+      "@data/*": ["src/data/*"],
+      "@infra/*": ["src/infra/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@theme/*": ["src/theme/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+
+    /* React Native typings */
+    "types": ["react", "react-native", "react-native-paper", "expo"]
+  },
+  "include": ["src", "App.tsx", "app.config.ts", "app.config.js"],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }

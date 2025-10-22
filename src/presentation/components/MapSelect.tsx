@@ -40,11 +40,15 @@ export default function MapSelect({ picked, setPicked }: Props) {
 
   function onSelectCurrentLocation() {
     withLocationPermission(async () => {
-      const accuracy = Location.Accuracy.Balanced;
-      const current = await Location.getCurrentPositionAsync({
-        accuracy,
-        mayShowUserSettingsDialog: true,
-      });
+      let current = await Location.getLastKnownPositionAsync();
+
+      if (!current) {
+        const accuracy = Location.Accuracy.Balanced;
+        current = await Location.getCurrentPositionAsync({
+          accuracy,
+          mayShowUserSettingsDialog: true,
+        });
+      }
       if (current.coords) setPicked(current.coords);
     });
   }

@@ -1,6 +1,6 @@
-import type { Todo } from "@domain/entities/Todo";
+import type { Todo, TodoDBRow } from "@domain/entities/Todo";
 export const TodoMapper = {
-  toRow(todo: Todo) {
+  toRow(todo: Todo): TodoDBRow {
     return {
       id: todo.id,
       title: todo.title,
@@ -13,12 +13,12 @@ export const TodoMapper = {
       updated_at: todo.updatedAt,
     } as const;
   },
-  fromRow(row: any): Todo {
+  fromRow(row: TodoDBRow): Todo {
     return {
       id: String(row.id),
       title: String(row.title),
-      description: row.description ?? null,
-      imageUri: row.image_uri ?? null,
+      description: row.description ?? undefined,
+      imageUri: row.image_uri ?? undefined,
       completed: Number(row.completed) === 1,
       createdAt: Number(row.created_at),
       latitude: Number(row.latitude),

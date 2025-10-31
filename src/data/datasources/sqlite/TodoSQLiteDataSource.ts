@@ -1,5 +1,5 @@
 import type { TodoRepository } from "@domain/repositories/TodoRepository";
-import type { Todo, TodoId } from "@domain/entities/Todo";
+import type { Todo, TodoDBRow, TodoId } from "@domain/entities/Todo";
 import { TodoMapper } from "@data/mappers/TodoMapper";
 import type { SQLiteDatabase } from "expo-sqlite";
 import { FilterType } from "@app/types/filter";
@@ -119,7 +119,7 @@ export class TodoSQLiteDataSource implements TodoRepository {
       sql += ` ORDER BY ${orderCol} ${orderDir}`;
 
       // execute
-      const rows = this.db.getAllSync(sql, params);
+      const rows = this.db.getAllSync(sql, params) as TodoDBRow[];
       return rows.map(TodoMapper.fromRow);
     } catch (error) {
       console.error("Error in all():", error);
@@ -128,7 +128,10 @@ export class TodoSQLiteDataSource implements TodoRepository {
   }
 
   async get(id: TodoId): Promise<Todo> {
-    const row = this.db.getFirstSync(`SELECT * FROM todos WHERE id = ?`, [id]);
+    const row = this.db.getFirstSync(`SELECT * FROM todos WHERE id = ?`, [id]) as
+      | TodoDBRow
+      | undefined
+      | null;
 
     if (!row) throw new Error("Todo not found");
 

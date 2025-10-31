@@ -1,6 +1,7 @@
 import { useTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { PaperProvider } from "react-native-paper";
+import Toast from "react-native-toast-message";
 
 import AppNavigator from "@presentation/navigation/AppNavigator";
 import { PermissionsProvider } from "./presentation/context/PermissionsContext";
@@ -13,15 +14,18 @@ export const useAppTheme = () => useTheme<AppTheme>();
 
 const App = () => {
   return (
-    <PaperProvider theme={theme}>
-      <PermissionsProvider>
-        <TodoProvider>
-          <NavigationContainer>
-            <AppNavigator />
-          </NavigationContainer>
-        </TodoProvider>
-      </PermissionsProvider>
-    </PaperProvider>
+    <>
+      <PaperProvider theme={theme}>
+        <PermissionsProvider>
+          <TodoProvider>
+            <NavigationContainer>
+              <AppNavigator />
+            </NavigationContainer>
+          </TodoProvider>
+        </PermissionsProvider>
+      </PaperProvider>
+      <Toast />
+    </>
   );
 };
 

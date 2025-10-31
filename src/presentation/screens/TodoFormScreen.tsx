@@ -11,12 +11,14 @@ import { RootStackParamList } from "../navigation/AppNavigator";
 import { useAppTheme } from "@app/app";
 import MapSelect from "../components/MapSelect";
 import { usePermissions } from "../context/PermissionsContext";
+import Toast from "react-native-toast-message";
+import { TOAST_TIMEOUT } from "@app/config/constants";
 
 export default function TaskFormScreen({
   route,
   navigation,
 }: NativeStackScreenProps<RootStackParamList, "TodoForm">) {
-  const { add, remove, update, items } = useTodos();
+  const { add, remove, update, toggle, items } = useTodos();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState<string>("");
   const [location, setLocation] = useState<LocationType | null>(null);
@@ -68,6 +70,19 @@ export default function TaskFormScreen({
 
   function onEdit() {
     setIsEditing(true);
+  }
+
+  function onComplete() {
+    if (todoSelected?.id && !todoSelected.completed) {
+      toggle(todoSelected.id);
+      Toast.show({
+        type: "success",
+        text1: "Tarefa concluída!",
+        swipeable: true,
+        position: "bottom",
+        visibilityTime: TOAST_TIMEOUT,
+      });
+    }
   }
 
   function onCancel() {
@@ -225,15 +240,17 @@ export default function TaskFormScreen({
               Excluir
             </Button>
 
-            <Button
-              mode="contained"
-              icon="check-circle-outline"
-              buttonColor={colors.success}
-              textColor={colors.white}
-              onPress={onEdit}
-            >
-              Concluir
-            </Button>
+            {!!todoSelected?.id && !todoSelected?.completed && (
+              <Button
+                mode="contained"
+                icon="check-circle-outline"
+                buttonColor={colors.success}
+                textColor={colors.white}
+                onPress={onComplete}
+              >
+                Concluir
+              </Button>
+            )}
           </View>
         </View>
       </ScrollView>
